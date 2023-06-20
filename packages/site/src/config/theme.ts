@@ -22,6 +22,7 @@ const theme = {
   radii: {
     default: '24px',
     button: '8px',
+    input: '8px',
   },
   breakpoints,
   mediaQueries: {
@@ -46,7 +47,7 @@ export const light: DefaultTheme = {
       inverse: '#141618',
     },
     icon: {
-      default: '#141618',
+      default: '#C2A633',
       alternative: '#BBC0C5',
     },
     text: {
@@ -85,7 +86,7 @@ export const dark: DefaultTheme = {
       inverse: '#FFFFFF',
     },
     icon: {
-      default: '#FFFFFF',
+      default: '#C2A633',
       alternative: '#BBC0C5',
     },
     text: {
@@ -182,5 +183,11 @@ export const GlobalStyle = createGlobalStyle`
       color: ${(props) => props.theme.colors.text.inverse};
       border: 1px solid ${(props) => props.theme.colors.background.inverse};
     }
+  }
+
+  input[type="text"], input[type="number"] {
+    border-radius: ${(props) => props.theme.radii.input};
+    border-width: 1px;
+    padding: 1rem;
   }
 `;

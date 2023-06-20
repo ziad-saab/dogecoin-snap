@@ -1,18 +1,18 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "description": "A snap to manage Dogecoin assets",
+  "proposedName": "Dogecoin Snap",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/ziad-saab/dogecoin-snap.git"
   },
   "source": {
-    "shasum": "usoZPr0F4J12BaVbuDQRCCIW2cj/N5gZD7ccOJfDZV8=",
+    "shasum": "5sPu+mYUcFVAVTKWV+aNYkn3x5VU3xIa6PBXSkDqg+k=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "snap",
+        "packageName": "@ziad-saab/dogecoin-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }
@@ -22,7 +22,13 @@
     "endowment:rpc": {
       "dapps": true,
       "snaps": false
-    }
+    },
+    "endowment:network-access": {},
+    "snap_getBip44Entropy": [
+      {
+        "coinType": 1
+      }
+    ]
   },
   "manifestVersion": "0.1"
 }

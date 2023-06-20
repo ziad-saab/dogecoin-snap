@@ -1,18 +1,18 @@
 {
-  "name": "@metamask/template-snap-monorepo",
+  "name": "dogecoin-snap",
   "version": "0.1.0",
   "private": true,
   "description": "",
-  "homepage": "https://github.com/MetaMask/template-snap-monorepo#readme",
+  "homepage": "https://github.com/ziad-saab/dogecoin-snap#readme",
   "bugs": {
-    "url": "https://github.com/MetaMask/template-snap-monorepo/issues"
+    "url": "https://github.com/ziad-saab/dogecoin-snap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "git+https://github.com/ziad-saab/dogecoin-snap.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
-  "author": "",
+  "author": "Ziad Saab <ziad.saab@gmail.com>",
   "workspaces": [
     "packages/*"
   ],

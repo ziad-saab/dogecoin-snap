@@ -1,5 +1,5 @@
 {
-  "name": "site",
+  "name": "@ziad-saab/dogecoin-dapp",
   "version": "0.1.0",
   "private": true,
   "license": "(MIT-0 OR Apache-2.0)",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@metamask/providers": "^9.0.0",
+    "@ziad-saab/dogecoin-snap": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",

@@ -1,8 +1,8 @@
 {
-  "name": "snap",
+  "name": "@ziad-saab/dogecoin-snap",
   "version": "0.1.0",
   "private": true,
-  "description": "The 'Hello, world!' of MetaMask Snaps, now written in TypeScript.",
+  "description": "A MetaMask snap for managing Dogecoin assets",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
@@ -26,9 +26,14 @@
     "start": "mm-snap watch"
   },
   "dependencies": {
+    "@metamask/key-tree": "^7.0.0",
     "@metamask/snaps-types": "^0.32.2",
     "@metamask/snaps-ui": "^0.32.2",
-    "buffer": "^6.0.3"
+    "bitcoinjs-lib": "^5.2.0",
+    "buffer": "^6.0.3",
+    "coininfo": "^5.2.1",
+    "dotenv": "^16.1.4",
+    "envify": "^4.1.0"
   },
   "devDependencies": {
     "@lavamoat/allow-scripts": "^2.0.3",
@@ -37,7 +42,7 @@
     "@metamask/eslint-config-jest": "^10.0.0",
     "@metamask/eslint-config-nodejs": "^10.0.0",
     "@metamask/eslint-config-typescript": "^10.0.0",
-    "@metamask/snaps-cli": "^0.32.2",
+    "@metamask/snaps-cli": "flask",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.21.0",

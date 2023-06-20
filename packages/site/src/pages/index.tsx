@@ -1,19 +1,16 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
-import {
-  connectSnap,
-  getSnap,
-  sendHello,
-  shouldDisplayReconnectButton,
-} from '../utils';
+import { connectSnap, getSnap, shouldDisplayReconnectButton } from '../utils';
 import {
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  SendHelloButton,
   Card,
 } from '../components';
+import { useAddress } from '../hooks/useAddress';
+import { useBalance } from '../hooks/useBalance';
+import { useSendDoge } from '../hooks/useSendDoge';
 
 const Container = styled.div`
   display: flex;
@@ -41,16 +38,6 @@ const Span = styled.span`
   color: ${(props) => props.theme.colors.primary.default};
 `;
 
-const Subtitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.large};
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
-  ${({ theme }) => theme.mediaQueries.small} {
-    font-size: ${({ theme }) => theme.fontSizes.text};
-  }
-`;
-
 const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -62,25 +49,6 @@ const CardContainer = styled.div`
   margin-top: 1.5rem;
 `;
 
-const Notice = styled.div`
-  background-color: ${({ theme }) => theme.colors.background.alternative};
-  border: 1px solid ${({ theme }) => theme.colors.border.default};
-  color: ${({ theme }) => theme.colors.text.alternative};
-  border-radius: ${({ theme }) => theme.radii.default};
-  padding: 2.4rem;
-  margin-top: 2.4rem;
-  max-width: 60rem;
-  width: 100%;
-
-  & > * {
-    margin: 0;
-  }
-  ${({ theme }) => theme.mediaQueries.small} {
-    margin-top: 1.2rem;
-    padding: 1.6rem;
-  }
-`;
-
 const ErrorMessage = styled.div`
   background-color: ${({ theme }) => theme.colors.error.muted};
   border: 1px solid ${({ theme }) => theme.colors.error.default};
@@ -90,12 +58,10 @@ const ErrorMessage = styled.div`
   margin-bottom: 2.4rem;
   margin-top: 2.4rem;
   max-width: 60rem;
-  width: 100%;
   ${({ theme }) => theme.mediaQueries.small} {
     padding: 1.6rem;
     margin-bottom: 1.2rem;
     margin-top: 1.2rem;
-    max-width: 100%;
   }
 `;
 
@@ -117,23 +83,31 @@ const Index = () => {
     }
   };
 
-  const handleSendHelloClick = async () => {
-    try {
-      await sendHello();
-    } catch (e) {
-      console.error(e);
-      dispatch({ type: MetamaskActions.SetError, payload: e });
-    }
+  const {
+    error: txError,
+    isLoading: isTxLoading,
+    lastTxId,
+    sendDoge,
+  } = useSendDoge();
+
+  const handleSendDoge: React.FormEventHandler<HTMLFormElement> = async (
+    event,
+  ) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    sendDoge(formData);
   };
+
+  const isSnapInstalled = Boolean(state.installedSnap);
+  const { address } = useAddress(isSnapInstalled);
+  const { balance } = useBalance(isSnapInstalled);
 
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Welcome to <Span>dogecoin-snap 🐶</Span>
       </Heading>
-      <Subtitle>
-        Get started by editing <code>src/index.ts</code>
-      </Subtitle>
       <CardContainer>
         {state.error && (
           <ErrorMessage>
@@ -183,33 +157,68 @@ const Index = () => {
             disabled={!state.installedSnap}
           />
         )}
-        <Card
-          content={{
-            title: 'Send Hello message',
-            description:
-              'Display a custom message within a confirmation screen in MetaMask.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
-                disabled={!state.installedSnap}
-              />
-            ),
-          }}
-          disabled={!state.installedSnap}
-          fullWidth={
-            state.isFlask &&
-            Boolean(state.installedSnap) &&
-            !shouldDisplayReconnectButton(state.installedSnap)
-          }
-        />
-        <Notice>
-          <p>
-            Please note that the <b>snap.manifest.json</b> and{' '}
-            <b>package.json</b> must be located in the server root directory and
-            the bundle must be hosted at the location specified by the location
-            field.
-          </p>
-        </Notice>
+        {address && (
+          <Card
+            fullWidth
+            content={{
+              title: 'Your Dogecoin Testnet Address',
+              description: address,
+            }}
+          />
+        )}
+        {balance && (
+          <Card
+            fullWidth
+            content={{
+              title: 'Your Dogecoin Testnet Balance',
+              description: `${balance} DOGETEST`,
+            }}
+          />
+        )}
+        {isSnapInstalled && (
+          <Card
+            fullWidth
+            content={{
+              title: 'Send DOGETEST',
+              description: (
+                <>
+                  <form onSubmit={handleSendDoge}>
+                    <p>
+                      <input
+                        type="text"
+                        name="toAddress"
+                        placeholder="Address"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="number"
+                        name="amountInDoge"
+                        placeholder="Amount in DOGE"
+                      />
+                    </p>
+                    <button disabled={isTxLoading} type="submit">
+                      Send DOGETEST
+                    </button>
+                  </form>
+                  {lastTxId && (
+                    <p>
+                      Latest transaction:{' '}
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`https://sochain.com/tx/DOGETEST/${lastTxId}`}
+                      >
+                        {lastTxId}
+                      </a>
+                    </p>
+                  )}
+                  {txError && <ErrorMessage>{txError}</ErrorMessage>}
+                </>
+              ),
+            }}
+          />
+        )}
       </CardContainer>
     </Container>
   );
