@@ -132,6 +132,14 @@ Whether you're building a Dapp that talks to your own snap, or a Dapp that talks
 
 3. Once the snap is connected to the Dapp, the Dapp can start calling its RPC methods. This is done by calling the `wallet_invokeSnap` method of the Ethereum Provider. Since this method is typed quite largely, we can again, optionally, make use of TypeScript to gain some type-safety and improve the developer experience. In this tutorial, this is accomplished through the [`snapRpcRequest`](./packages/site/src/utils/snap.ts#L63) function. This function leverages the `RpcMethodTypes` type exported by the snap to provide a type-safe way to call the snap's RPC methods.
 
+## What will it look like?
+
+Here's a demo of the Dogecoin snap in action!
+
+
+https://github.com/ziad-saab/dogecoin-snap/assets/3943143/baff21b9-5683-43af-a31e-35b32a4492d9
+
+
 ## Let's start coding 🚀
 
 Now that we've familiarized ourselves with the steps necessary to create a non-EVM snap, let's see how we can start coding one.
