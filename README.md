@@ -932,7 +932,7 @@ export const useBalance = (isSnapInstalled: boolean) => {
     if (isSnapInstalled) {
       (async () => {
         const balanceResponse = await getBalance();
-        if (balanceResponse) {
+        if (balanceResponse !== undefined) {
           setBalance(balanceResponse);
         }
       })();
@@ -1167,7 +1167,7 @@ const Index = () => {
             }}
           />
         )}
-        {balance && (
+        {balance !== undefined && (
           <Card
             fullWidth
             content={{

@@ -166,7 +166,7 @@ const Index = () => {
             }}
           />
         )}
-        {balance && (
+        {balance !== undefined && (
           <Card
             fullWidth
             content={{

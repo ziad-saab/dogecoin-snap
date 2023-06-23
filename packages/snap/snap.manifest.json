@@ -4,7 +4,7 @@
   "proposedName": "Dogecoin Snap",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ziad-saab/dogecoin-snap.git"
+    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
     "shasum": "5sPu+mYUcFVAVTKWV+aNYkn3x5VU3xIa6PBXSkDqg+k=",
